@@ -9,23 +9,30 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Maven Build') {
             steps {
-                echo 'Building Employee Management application...'
+                echo 'Building Spring Boot application...'
                 bat 'mvnw.cmd clean package -DskipTests'
             }
         }
 
         stage('Docker Build') {
             steps {
-                bat 'docker build -t employee-management:jenkins .'
+                echo 'Building Docker image...'
+                bat 'docker build -t shiva21sharan/employee-management:jenkins .'
+            }
+        }
+
+        stage('Docker Login') {
+            steps {
+                echo 'Docker login will be configured next.'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'CI pipeline completed successfully!'
         }
 
         failure {
