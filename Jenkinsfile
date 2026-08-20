@@ -12,20 +12,14 @@ pipeline {
         stage('Maven Build') {
             steps {
                 echo 'Building Spring Boot application...'
-                bat 'mvnw.cmd clean package -DskipTests'
+                sh './mvnw clean package -DskipTests'
             }
         }
 
         stage('Docker Build') {
             steps {
                 echo 'Building Docker image...'
-                bat 'docker build -t shiva21sharan/employee-management:jenkins .'
-            }
-        }
-
-        stage('Docker Login') {
-            steps {
-                echo 'Docker login will be configured next.'
+                sh 'docker build -t shiva21sharan/employee-management:jenkins .'
             }
         }
     }
